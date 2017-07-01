@@ -11,8 +11,6 @@ if [[ $1 && $2 && -d $1 ]]; then
 				currTime=`date +%s`
 				if [[ $[ $currTime - $modifiedTime] -gt $saveTime ]]; then
 					rm -f $1/$i
-				else
-					echo $[ $currTime - $modifiedTime]
 				fi
 
 			elif [[ -d $1/$i ]]; then
