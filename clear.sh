@@ -2,7 +2,6 @@
 if [[ $1 && $2 && -d $1 ]]; then
 	# 时间范围
 	saveTime=$[$2*24*60*60]
-	echo $saveTime
 	function clearLog(){
 		for i in `ls $1`; do
 			if [[ -f $1/$i ]]; then
@@ -10,7 +9,7 @@ if [[ $1 && $2 && -d $1 ]]; then
 				modifiedTime=`stat -c %Y $1/$i`
 				# 获取系统当前时间
 				currTime=`date +%s`
-				if [[ $[ $currTime - $modifiedTime] -lt $saveTime ]]; then
+				if [[ $[ $currTime - $modifiedTime] -gt $saveTime ]]; then
 					rm -f $1/$i
 				else
 					echo $[ $currTime - $modifiedTime]
@@ -22,7 +21,7 @@ if [[ $1 && $2 && -d $1 ]]; then
 		done
 	}
 
-	# clearLog $1
+	clearLog $1
 
 	echo '清理成功'
 else
